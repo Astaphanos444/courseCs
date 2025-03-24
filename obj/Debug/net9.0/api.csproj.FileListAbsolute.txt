@@ -166,3 +166,4 @@ C:\Users\chris\Desktop\ApiCsCurso\api\obj\Debug\net9.0\ref\api.dll
 C:\Users\chris\Desktop\ApiCsCurso\api\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\chris\Desktop\ApiCsCurso\api\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\chris\Desktop\ApiCsCurso\api\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\chris\Desktop\ApiCsCurso\api\obj\Debug\net9.0\api.sourcelink.json
