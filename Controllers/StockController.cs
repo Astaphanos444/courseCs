@@ -52,7 +52,7 @@ namespace api.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        public async Task<ActionResult<Stock>> UpdateStock(long id, [FromBody] UpdateDto updateDto){
+        public async Task<ActionResult<Stock>> UpdateStock([FromRoute] long id, [FromBody] UpdateDto updateDto){
             var stock = await _context.Stocks.FirstOrDefaultAsync(x => x.Id == id) as Stock;
 
             if( stock == null) return NotFound();
@@ -67,6 +67,18 @@ namespace api.Controllers
             _context.SaveChanges();
 
             return Ok(stock.ToStockDto());
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<ActionResult<Stock>> DeleteStock([FromRoute] long id){
+            var stock = await _context.Stocks.FirstOrDefaultAsync(x => x.Id == id) as Stock;
+            if(stock == null) return NotFound();
+
+            _context.Stocks.Remove(stock);
+            await _context.SaveChangesAsync();
+
+            return Ok();
         }
     }
 }
