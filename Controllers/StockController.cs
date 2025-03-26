@@ -49,5 +49,24 @@ namespace api.Controllers
 
             return CreatedAtAction(nameof(GetStockById), new { id = stock.Id }, stock.ToStockDto());
         }
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<ActionResult<Stock>> UpdateStock(long id, [FromBody] UpdateDto updateDto){
+            var stock = await _context.Stocks.FirstOrDefaultAsync(x => x.Id == id) as Stock;
+
+            if( stock == null) return NotFound();
+
+            stock.Symbol = updateDto.Symbol;
+            stock.CompanyName = updateDto.CompanyName;
+            stock.Puchaste = updateDto.Puchaste;
+            stock.LastDiv =  updateDto.LastDiv;
+            stock.Industry = updateDto.Industry;
+            stock.MarketCap = updateDto.MarketCap;
+
+            _context.SaveChanges();
+
+            return Ok(stock.ToStockDto());
+        }
     }
 }
