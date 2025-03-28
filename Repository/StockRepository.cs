@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
@@ -27,7 +28,7 @@ namespace api.Repository
                 .ToListAsync();
         }
 
-        public async Task<Stock?> GetStockByIdAsync(int id)
+        public async Task<Stock?> GetStockByIdAsync(int? id)
         {
             return await _context.Stocks
                 .Include(x => x.Comments)
@@ -46,7 +47,7 @@ namespace api.Repository
             return stock;
         }
 
-        public async Task<Stock?> UpdateStockRequest(long id, UpdateDto updateDto)
+        public async Task<Stock?> UpdateStockRequest(int? id, UpdateDto updateDto)
         {
             var stock = await _context.Stocks.FirstOrDefaultAsync(x => x.Id == id) as Stock;
 
@@ -64,7 +65,7 @@ namespace api.Repository
            return stock;
         }
         
-        public async Task<Stock?> RemoveStock(long id)
+        public async Task<Stock?> RemoveStock(int? id)
         {
             var stock = await _context.Stocks.FirstOrDefaultAsync(x => x.Id == id) as Stock;
 
@@ -74,6 +75,11 @@ namespace api.Repository
             await _context.SaveChangesAsync();
 
             return stock;
+        }
+
+        public async Task<bool> StockExists(int? id)
+        {
+            return await _context.Stocks.AnyAsync(x => x.Id == id);
         }
     }
 }

@@ -56,7 +56,7 @@ namespace api.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        public async Task<ActionResult<Stock>> UpdateStock([FromRoute] long id, [FromBody] UpdateDto updateDto){
+        public async Task<ActionResult<Stock>> UpdateStock([FromRoute] int? id, [FromBody] UpdateDto updateDto){
 
             var stock = await _stockRepository.UpdateStockRequest(id, updateDto);
 
@@ -67,7 +67,7 @@ namespace api.Controllers
 
         [HttpDelete]
         [Route("{id}")]
-        public async Task<ActionResult<Stock>> DeleteStock([FromRoute] long id){
+        public async Task<ActionResult<Stock>> DeleteStock([FromRoute] int? id){
             var stock = await _stockRepository.RemoveStock(id);
 
             if(stock == null) return NotFound();

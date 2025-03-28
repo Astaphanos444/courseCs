@@ -10,9 +10,11 @@ namespace api.Interfaces
     public interface IStockRepository
     {
         Task<List<Stock>> GetAllStocksAsync();
-        Task<Stock?> GetStockByIdAsync(int id);
+        Task<Stock?> GetStockByIdAsync(int? id);
         Task<Stock?> CreateStockRequest(CreateStockDto createStockDto);
-        Task<Stock?> UpdateStockRequest(long id, UpdateDto updateStockDto);
-        Task<Stock?> RemoveStock(long id);
+        Task<Stock?> UpdateStockRequest(int? id, UpdateDto updateStockDto);
+        Task<Stock?> RemoveStock(int? id);
+
+        Task<bool> StockExists(int? id);
     }
 }

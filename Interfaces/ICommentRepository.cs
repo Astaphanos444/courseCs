@@ -11,9 +11,9 @@ namespace api.Interfaces
     public interface ICommentRepository
     {
         Task<List<Comment>> getAllComments();
-        Task<Comment?> getCommentById(long id);
+        Task<Comment?> getCommentById(int? id);
         Task<Comment?> CreateComment(CreateCommentDto createDto);
-        Task<Comment?> UpdateComment(long id,UpdateCommentDto updateDto);
-        Task<Comment?> DeleteComment(long id);
+        Task<Comment?> UpdateComment(int? id,UpdateCommentDto updateDto);
+        Task<Comment?> DeleteComment(int? id);
     }
 }

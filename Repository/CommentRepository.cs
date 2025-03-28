@@ -14,12 +14,19 @@ namespace api.Repository
     public class CommentRepository : ICommentRepository
     {
         private readonly ApplicationDBContext _context;
-        public CommentRepository(ApplicationDBContext context)
+        private readonly IStockRepository _stockRepository;
+        public CommentRepository(ApplicationDBContext context, IStockRepository stockRepository)
         {
+            _stockRepository = stockRepository;
             _context = context;
         }
         public async Task<Comment?> CreateComment(CreateCommentDto createDto) 
         {
+            if(!Convert.ToBoolean(await _stockRepository.StockExists(createDto.StockId)))
+            {
+                return null;
+            }
+
             var comment = createDto.CreateToComment();
 
             if(comment == null) return null;
@@ -30,7 +37,7 @@ namespace api.Repository
             return comment;
         }
 
-        public async Task<Comment?> DeleteComment(long id)
+        public async Task<Comment?> DeleteComment(int? id)
         {
             var comment = await _context.Comments.FirstOrDefaultAsync(c => c.Id == id) as Comment;
 
@@ -49,14 +56,14 @@ namespace api.Repository
             return comments;
         }
 
-        public async Task<Comment?> getCommentById(long id)
+        public async Task<Comment?> getCommentById(int? id)
         {
             var comment = await _context.Comments.FirstOrDefaultAsync(x => x.Id == id);
 
             return comment;
         }
 
-        public async Task<Comment?> UpdateComment(long id, UpdateCommentDto updateDto)
+        public async Task<Comment?> UpdateComment(int? id, UpdateCommentDto updateDto)
         {
             var comment = await _context.Comments.FirstOrDefaultAsync(x => x.Id == id) as Comment;
 

@@ -34,7 +34,7 @@ namespace api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Comment>> GetCommentById([FromRoute] int id)
+        public async Task<ActionResult<Comment>> GetCommentById([FromRoute] int? id)
         {
             var comment = await _commentRepository.getCommentById(id);
 
@@ -55,7 +55,7 @@ namespace api.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        public async Task<ActionResult<Comment>> UpdateStock([FromRoute] long id, [FromBody] UpdateCommentDto updateDto){
+        public async Task<ActionResult<Comment>> UpdateStock([FromRoute] int? id, [FromBody] UpdateCommentDto updateDto){
 
             var comment = await _commentRepository.UpdateComment(id, updateDto);
 
@@ -66,7 +66,7 @@ namespace api.Controllers
 
         [HttpDelete]
         [Route("{id}")]
-        public async Task<ActionResult<Stock>> DeleteStock([FromRoute] long id){
+        public async Task<ActionResult<Stock>> DeleteStock([FromRoute] int? id){
             var comment = await _commentRepository.DeleteComment(id);
 
             if(comment == null) return NotFound();
