@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using api.Dtos.Comment;
+using api.Dtos.CommentDto;
 using api.Models;
 using Microsoft.AspNetCore.Components.Web;
 
@@ -21,9 +21,9 @@ namespace api.Mappers
             };
         }
 
-        public static CommentDto CommentToCommentDto(this Comment comment)
+        public static DtoComment CommentToCommentDto(this Comment comment)
         {
-            return new CommentDto
+            return new DtoComment
             {
                 Id = comment.Id,
                 Title = comment.Title,

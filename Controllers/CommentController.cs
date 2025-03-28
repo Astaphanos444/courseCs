@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
-using api.Dtos.Comment;
+using api.Dtos.CommentDto;
 using api.Interfaces;
 using api.Mappers;
 using api.Models;
@@ -24,7 +24,7 @@ namespace api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<CommentDto>>> GetAllStocks()
+        public async Task<ActionResult<List<DtoComment>>> GetAllStocks()
         {
             var comments = await _commentRepository.getAllComments();
 
@@ -44,7 +44,7 @@ namespace api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CommentDto>> CreateStockRequest([FromBody] CreateCommentDto commentDto)
+        public async Task<ActionResult<DtoComment>> CreateStockRequest([FromBody] CreateCommentDto commentDto)
         {
             var comment = await _commentRepository.CreateComment(commentDto);
 

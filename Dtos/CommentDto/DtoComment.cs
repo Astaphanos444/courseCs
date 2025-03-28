@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.Models;
 
-namespace api.Dtos.Comment
+namespace api.Dtos.CommentDto
 
 {
-    public class CommentDto
+    public class DtoComment
     {
         public int Id { get; set; }
         public string Title { get; set; } = string.Empty;

@@ -167,3 +167,7 @@ C:\Users\chris\Desktop\ApiCsCurso\api\bin\Debug\net9.0\Swashbuckle.AspNetCore.Sw
 C:\Users\chris\Desktop\ApiCsCurso\api\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\chris\Desktop\ApiCsCurso\api\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\chris\Desktop\ApiCsCurso\api\obj\Debug\net9.0\api.sourcelink.json
+C:\Users\chris\Desktop\ApiCsCurso\api\bin\Debug\net9.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\chris\Desktop\ApiCsCurso\api\bin\Debug\net9.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\chris\Desktop\ApiCsCurso\api\bin\Debug\net9.0\Newtonsoft.Json.dll
+C:\Users\chris\Desktop\ApiCsCurso\api\bin\Debug\net9.0\Newtonsoft.Json.Bson.dll
