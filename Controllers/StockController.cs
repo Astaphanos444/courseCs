@@ -34,7 +34,7 @@ namespace api.Controllers
             return Ok(stocksDtos);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult<Stock>> GetStockById([FromRoute] int id)
         {
             var stock = await _stockRepository.GetStockByIdAsync(id);
@@ -47,6 +47,8 @@ namespace api.Controllers
         [HttpPost]
         public async Task<ActionResult<Stock>> CreateStockRequest([FromBody] CreateStockDto stockModel)
         {
+            if(!ModelState.IsValid) return BadRequest();
+
             var stock = await _stockRepository.CreateStockRequest(stockModel);
 
             if (stock == null) return NotFound();
@@ -55,8 +57,10 @@ namespace api.Controllers
         }
 
         [HttpPut]
-        [Route("{id}")]
-        public async Task<ActionResult<Stock>> UpdateStock([FromRoute] int? id, [FromBody] UpdateDto updateDto){
+        [Route("{id:int}")]
+        public async Task<ActionResult<Stock>> UpdateStock([FromRoute] int? id, [FromBody] UpdateDto updateDto)
+        {
+            if(!ModelState.IsValid) return BadRequest();
 
             var stock = await _stockRepository.UpdateStockRequest(id, updateDto);
 
@@ -66,7 +70,7 @@ namespace api.Controllers
         }
 
         [HttpDelete]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<ActionResult<Stock>> DeleteStock([FromRoute] int? id){
             var stock = await _stockRepository.RemoveStock(id);
 
