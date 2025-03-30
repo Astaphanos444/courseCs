@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
 using api.Dtos.Stock;
+using api.Helpers;
 using api.Interfaces;
 using api.Mappers;
 using api.Models;
@@ -21,11 +22,31 @@ namespace api.Repository
         }
 
 
-        public async Task<List<Stock>> GetAllStocksAsync()
+        public async Task<List<Stock>> GetAllStocksAsync(QueryObject query)
         {
-            return await _context.Stocks
+            var stocks = _context.Stocks
                 .Include(x => x.Comments)
-                .ToListAsync();
+                .AsQueryable();
+
+            if(!string.IsNullOrWhiteSpace(query.CompanyName))
+            {
+                stocks = stocks.Where(x => x.CompanyName.Contains(query.CompanyName));
+            }
+            if(!string.IsNullOrWhiteSpace(query.Symbol))
+            {
+                stocks = stocks.Where(x => x.Symbol.Contains(query.Symbol));
+            }
+            if(!string.IsNullOrWhiteSpace(query.SortBy))
+            {
+                if(query.SortBy.Equals("Symbol", StringComparison.OrdinalIgnoreCase))
+                {
+                    stocks = query.IsDecsending ? 
+                        stocks.OrderByDescending(x => x.Symbol) : 
+                        stocks.OrderBy(x => x.Symbol);
+                }
+            }
+
+            return await stocks.ToListAsync();
         }
 
         public async Task<Stock?> GetStockByIdAsync(int? id)
