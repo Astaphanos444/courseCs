@@ -7,12 +7,14 @@ using api.Dtos.CommentDto;
 using api.Interfaces;
 using api.Mappers;
 using api.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class CommentController : ControllerBase
     {
         private readonly ApplicationDBContext _context;
