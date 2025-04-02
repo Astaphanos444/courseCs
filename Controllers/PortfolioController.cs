@@ -59,5 +59,26 @@ namespace api.Controllers
             if(portfolioModel == null) return StatusCode(500, "Could not Create");
             return Created();
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeletePortfolio(string symbol)
+        {
+            var username = User.GetUsername();
+            var appUser = await _userManager.FindByNameAsync(username);
+
+            var userPortfolio = await _portfolioRepository.GetUserPortfolio(appUser);
+
+            var filteredStock = userPortfolio.Where(e => e.Symbol.ToLower() == symbol.ToLower()).ToList();
+            if(filteredStock.Count() == 1)
+            {
+                await _portfolioRepository.DeleteAsync(appUser, symbol);
+            }
+            else
+            {
+                return BadRequest("Stock is not in your Portfolio");
+            }
+
+            return Ok();
+        }
     }
 }
