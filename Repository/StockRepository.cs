@@ -26,6 +26,7 @@ namespace api.Repository
         {
             var stocks = _context.Stocks
                 .Include(x => x.Comments)
+                .ThenInclude(x => x.AppUser)
                 .AsQueryable();
 
             if(!string.IsNullOrWhiteSpace(query.CompanyName))
@@ -58,6 +59,7 @@ namespace api.Repository
         {
             return await _context.Stocks
                 .Include(x => x.Comments)
+                .ThenInclude(x => x.AppUser)
                 .FirstOrDefaultAsync(x => x.Id  == id) as Stock;
         }
 

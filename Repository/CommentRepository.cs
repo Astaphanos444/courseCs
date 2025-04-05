@@ -20,14 +20,12 @@ namespace api.Repository
             _stockRepository = stockRepository;
             _context = context;
         }
-        public async Task<Comment?> CreateComment(CreateCommentDto createDto) 
+        public async Task<Comment?> CreateComment(Comment comment) 
         {
-            if(!Convert.ToBoolean(await _stockRepository.StockExists(createDto.StockId)))
+            if(!Convert.ToBoolean(await _stockRepository.StockExists(comment.StockId)))
             {
                 return null;
             }
-
-            var comment = createDto.CreateToComment();
 
             if(comment == null) return null;
 
@@ -51,14 +49,18 @@ namespace api.Repository
 
         public async Task<List<Comment>> getAllComments()
         {
-            var comments = await _context.Comments.ToListAsync();
+            var comments = await _context.Comments
+                .Include(x => x.AppUser)
+                .ToListAsync();
 
             return comments;
         }
 
         public async Task<Comment?> getCommentById(int? id)
         {
-            var comment = await _context.Comments.FirstOrDefaultAsync(x => x.Id == id);
+            var comment = await _context.Comments
+                .Include(x => x.AppUser)
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             return comment;
         }

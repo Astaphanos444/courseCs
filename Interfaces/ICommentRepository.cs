@@ -12,7 +12,7 @@ namespace api.Interfaces
     {
         Task<List<Comment>> getAllComments();
         Task<Comment?> getCommentById(int? id);
-        Task<Comment?> CreateComment(CreateCommentDto createDto);
+        Task<Comment?> CreateComment(Comment comment);
         Task<Comment?> UpdateComment(int? id,UpdateCommentDto updateDto);
         Task<Comment?> DeleteComment(int? id);
     }
